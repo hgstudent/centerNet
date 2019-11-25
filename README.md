@@ -2,7 +2,9 @@
 Minimal tf2.0 implementation of CenterNet (https://arxiv.org/abs/1904.08189)
 
 #### Doing:
-+  Model architecture looks right to me. If you find an error in the code please dont hesitate to open an issue 😊
++  Base model architecture
++  Top and bottom pooling
++  Push and pull loss
 
 #### ToDo:
 + [ ] Implement data handing for easier training of model.
