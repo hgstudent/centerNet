@@ -1,5 +1,5 @@
 def br_pooling(x):
-  left, top = tf.keras.backend.int_shape(x)[-3], tf.keras.backend.int_shape(x)[-2]
+  left, top = tf.keras.backend.int_shape(x)[-2], tf.keras.backend.int_shape(x)[-3]
   x_ = conv_module(x)
   
   t1 = tf.keras.layers.ZeroPadding2D(((0,0), (left-1,0)))(x_)
@@ -16,7 +16,7 @@ def br_pooling(x):
 
 
 def tl_pooling(x):
-  right, bottom = tf.keras.backend.int_shape(x)[-3], tf.keras.backend.int_shape(x)[-2]
+  right, bottom = tf.keras.backend.int_shape(x)[-2], tf.keras.backend.int_shape(x)[-3]
   x_ = conv_module(x)
   
   t1 = tf.keras.layers.ZeroPadding2D(((0,0), (0,right-1)))(x_)
