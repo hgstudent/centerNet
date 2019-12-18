@@ -1,5 +1,5 @@
 def br_pooling(x):
-  left, top =tf.keras.backend.int_shape(x)[-3], tf.keras.backend.int_shape(x)[-2]
+  left, top = tf.keras.backend.int_shape(x)[-3], tf.keras.backend.int_shape(x)[-2]
 
   t1 = tf.keras.layers.ZeroPadding2D(((0,0), (left-1,0)))(x)
   t1 = tf.keras.layers.MaxPool2D((1, left), 1)(t1)
