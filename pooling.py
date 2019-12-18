@@ -1,21 +1,24 @@
 def br_pooling(x):
   left, top = tf.keras.backend.int_shape(x)[-3], tf.keras.backend.int_shape(x)[-2]
-
-  t1 = tf.keras.layers.ZeroPadding2D(((0,0), (left-1,0)))(x)
+  x_ = conv_module(x)
+  
+  t1 = tf.keras.layers.ZeroPadding2D(((0,0), (left-1,0)))(x_)
   t1 = tf.keras.layers.MaxPool2D((1, left), 1)(t1)
   
   #NON-CASCADE
-  t2 = tf.image.rot90(x, 2)
+  x_ = conv_module(x)
+  t2 = tf.image.rot90(x_, 2)
   t2 = tf.keras.layers.ZeroPadding2D(((0,top-1), (0,0)))(t2)
   t2 = tf.keras.layers.MaxPool2D((top, 1), 1)(t2)
   t2 = tf.image.rot90(t2, 2)
   
   return t1 + t2
 
-def tl_pooling(x):
-  x_ = conv_module(x)
-  right, bottom = tf.keras.backend.int_shape(x)[-3], tf.keras.backend.int_shape(x)[-2]
 
+def tl_pooling(x):
+  right, bottom = tf.keras.backend.int_shape(x)[-3], tf.keras.backend.int_shape(x)[-2]
+  x_ = conv_module(x)
+  
   t1 = tf.keras.layers.ZeroPadding2D(((0,0), (0,right-1)))(x_)
   t1 = tf.keras.layers.MaxPool2D((1, right), 1)(t1)
   
