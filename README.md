@@ -5,7 +5,7 @@ Minimal tf2.0 implementation of CenterNet (https://arxiv.org/abs/1904.08189)
 +  Base model architecture
 
 ### Done:
-- [x] Top and bottom pooling
+- [x] Top left and bottom right pooling
 - [x] Push and pull loss, 
 
 #### ToDo:
