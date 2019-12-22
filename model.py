@@ -1,4 +1,5 @@
 from pooling import *
+import tensorflow as tf
 
 def model(c = 1):
   inputs = tf.keras.Input(shape=(3,3,1))
