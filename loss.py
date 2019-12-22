@@ -1,3 +1,6 @@
+import tensorflow as tf
+import numpy as np
+
 def push_pull(pred_tl, pred_br, mask_tl, mask_br):
   s1 = tf.gather_nd(pred_tl, mask_tl)
   s2 = tf.gather_nd(pred_br, mask_br)
