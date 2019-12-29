@@ -1,6 +1,6 @@
 def extract_masks(gt, dtype_="int32"):
   gt = tf.cast(gt, dtype=dtype_)
-  cond = tf.where(tf.math.not_equal(gt, 0))
+  cond = tf.where(tf.math.not_equal(gt, -1))
   c = cond[::2, 0]
   c = tf.reshape(c, (-1, 1))
   c = tf.cast(c, dtype=dtype_)
