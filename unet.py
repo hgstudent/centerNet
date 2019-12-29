@@ -1,3 +1,4 @@
+#from https://androidkt.com/tensorflow-keras-unet-for-image-image-segmentation/
 def unet(in_, filters=32):
   c1 = tf.keras.layers.Conv2D(filters, (3, 3), activation="relu", padding='same')(in_)
   c1 = tf.keras.layers.Dropout(0.1)(c1)
