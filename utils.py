@@ -4,5 +4,5 @@ def extract_masks(gt, dtype_="int32"):
   c = cond[::2, 0]
   c = tf.reshape(c, (-1, 1))
   c = tf.cast(c, dtype=dtype_)
-  c = tf.concat([c,tf.reshape(tf.gather_nd(gt, cond), (2,-1))], axis=-1)
+  c = tf.concat([c,tf.reshape(tf.gather_nd(gt, cond), (-1,2))], axis=-1)
   return c
