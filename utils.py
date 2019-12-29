@@ -6,3 +6,10 @@ def extract_masks(gt, dtype_="int32"):
   c = tf.cast(c, dtype=dtype_)
   c = tf.concat([c,tf.reshape(tf.gather_nd(gt, cond), (-1,2))], axis=-1)
   return c
+
+def preprocess_img(row):
+  size_ = (300,300)
+  row["image"] = tf.image.resize(row["image"], size_)
+  row["objects"]["bbox"] = tf.round((row["objects"]["bbox"]*size_[0]))
+  
+  return row["image"], tf.cast(row["objects"]["bbox"], tf.int32)
