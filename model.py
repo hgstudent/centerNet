@@ -21,13 +21,14 @@ def model(c = 1, input_size=(512,512,3)):
   x = conv_module(x)
 
   #Top left heatmap
-  tl_hm = tf.keras.layers.Conv2D(32, (3,3), activation="sigmoid", padding="same")(x)
-  tl_hm = tf.keras.layers.Conv2D(c, (1,1), padding="same", name="tl_hm")(tl_hm)
+  tl_hm = tf.keras.layers.Conv2D(32, (3,3), activation="relu", padding="same")(x)
+  tl_hm = tf.keras.layers.Conv2D(c, (1,1), activation="sigmoid", padding="same", name="tl_hm")(tl_hm)
 
   #Top left embeddings
   tl_em = tf.keras.layers.Conv2D(32, (3,3), activation="relu", padding="same")(x)
   tl_em = tf.keras.layers.Conv2D(1, (1,1), padding="same")(tl_em)
   tl_em = tf.squeeze(tl_em, [-1], name="tl_em")
+
 
   #Bottom right
   br = br_pooling(feature_map)
@@ -41,8 +42,8 @@ def model(c = 1, input_size=(512,512,3)):
   x = conv_module(x)
 
   #Bottom right heatmap
-  br_hm = tf.keras.layers.Conv2D(32, (3,3), activation="sigmoid", padding="same")(x)
-  br_hm = tf.keras.layers.Conv2D(c, (1,1), padding="same", name="br_hm")(br_hm)
+  br_hm = tf.keras.layers.Conv2D(32, (3,3), activation="relu", padding="same")(x)
+  br_hm = tf.keras.layers.Conv2D(c, (1,1), activation="sigmoid", padding="same", name="br_hm")(br_hm)
 
   #Bottom right embeddings
   br_em = tf.keras.layers.Conv2D(32, (3,3), activation="relu", padding="same")(x)
