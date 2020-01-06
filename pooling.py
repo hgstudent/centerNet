@@ -29,7 +29,7 @@ def tl_pooling(x):
   
   return t1 + t2
 
-def conv_module(x, f=32, size=(3,3), strides_=(1,1)):
+def conv_module(x, f=128, size=(3,3), strides_=(1,1)):
   t = tf.keras.layers.Conv2D(f, size, padding="same", strides=strides_)(x)
   t = tf.keras.layers.BatchNormalization()(t)
   t = tf.keras.layers.ReLU()(t)
