@@ -2,38 +2,38 @@ import tensorflow as tf
 import numpy as np
 
 def push_pull(pred_tl, pred_br, mask_tl, mask_br):
-  s1    = tf.gather_nd(pred_tl, mask_tl)
-  s2    = tf.gather_nd(pred_br, mask_br)
-  N     = len(s1)
-  mean  = (s1+s2)/2
+  s1        = tf.gather_nd(pred_tl, mask_tl)
+  s2        = tf.gather_nd(pred_br, mask_br)
+  N         = len(s1)
+  mean      = (s1+s2)/2
 
-  pull  = tf.pow(s1-mean, 2) + tf.pow(s2-mean,2)
-  pull  = tf.reduce_sum(pull)
+  pull      = tf.pow(s1-mean, 2) + tf.pow(s2-mean,2)
+  pull      = tf.reduce_sum(pull)
   
-  tmp   = tf.transpose(tf.broadcast_to(mean,(N,N)))  
-  push  = tf.math.abs(mean - tmp)
-  push  = tf.math.maximum(0, 1 - push) - tf.eye(N)
-  push  = tf.reduce_sum(push)
+  tmp       = tf.transpose(tf.broadcast_to(mean,(N,N)))  
+  push      = tf.math.abs(mean - tmp)
+  push      = tf.math.maximum(0, 1 - push) - tf.eye(N)
+  push      = tf.reduce_sum(push)
 
-  pull  = pull/N
-  push  = push/(N*(N-1+1e-4))
+  pull      = pull/N
+  push      = push/(N*(N-1+1e-4))
   
   return push, pull
 
 def focal_loss(hm_pred, hm_true):
-    #Inspired by https://github.com/xuannianz/keras-CenterNet
-    N         = tf.cast(tf.reduce_sum(hm_true), tf.float32)
-    pos_mask  = tf.cast(tf.equal(hm_true, 1), tf.float32)
-    neg_mask  = tf.cast(tf.less(hm_true, 1), tf.float32)
+  #Inspired by https://github.com/xuannianz/keras-CenterNet
+  N         = tf.cast(tf.reduce_sum(hm_true), tf.float32)
+  pos_mask  = tf.cast(tf.equal(hm_true, 1), tf.float32)
+  neg_mask  = tf.cast(tf.less(hm_true, 1), tf.float32)
 
-    pos_loss  = -tf.math.log(tf.clip_by_value(hm_pred, 1e-4, 1. - 1e-4)) * tf.pow(1 - hm_pred, 2) * pos_mask
-    neg_loss  = -tf.math.log(tf.clip_by_value(1 - hm_pred, 1e-4, 1. - 1e-4)) * tf.pow(hm_pred, 2) * neg_mask
+  pos_loss  = -tf.math.log(tf.clip_by_value(hm_pred, 1e-4, 1. - 1e-4)) * tf.pow(1 - hm_pred, 2) * pos_mask
+  neg_loss  = -tf.math.log(tf.clip_by_value(1 - hm_pred, 1e-4, 1. - 1e-4)) * tf.pow(hm_pred, 2) * neg_mask
 
-    pos_loss  = tf.reduce_sum(pos_loss)
-    neg_loss  = tf.reduce_sum(neg_loss)
+  pos_loss  = tf.reduce_sum(pos_loss)
+  neg_loss  = tf.reduce_sum(neg_loss)
 
-    _loss  = (neg_loss + pos_loss)/N
-    return _loss
+  _loss  = (neg_loss + pos_loss)/N
+  return _loss
 
 def loss_fn(y_pred, y_true):
   tl_hm_pred  = y_pred[0]
