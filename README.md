@@ -7,7 +7,7 @@ Minimal tf2.0 implementation of CenterNet (https://arxiv.org/abs/1904.08189)
 
 #### ToDo:
 + [ ] Implement data handing for easier training of model
-+ [ ] Train on VOC
++ [ ] Train on Kitti, kitti is currently bugged in Tensorflow datasets, will train when its fixed
 
 ### Done:
 - [x] Top left and bottom right pooling
