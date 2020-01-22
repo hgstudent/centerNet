@@ -11,6 +11,7 @@ optimizer = tf.keras.optimizers.Adam(learning_rate=2.5e-4)
 shapes    = ([None, None, 3], [None, 4])
 p_values  = (tf.constant(0, dtype=tf.float32), tf.constant(-1, dtype=tf.int32))
 epochs    = 100
+m         = centerNet()
 
 for epoch in range(epochs):
   loss_comp = 0
