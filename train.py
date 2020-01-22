@@ -32,5 +32,5 @@ for epoch in range(epochs):
     i = i + 1
   
   print("Epoch: "       + str(epoch))
-  print("Total loss: "  + str(loss_comp/i))
+  print("Total loss: "  + str(loss_cmp/i))
   print()
