@@ -14,7 +14,7 @@ epochs    = 100
 m         = centerNet()
 
 for epoch in range(epochs):
-  loss_comp = 0
+  loss_cmp = 0
   i         = 0
   
   for voc_example in voc_train.map(preprocess_img).padded_batch(5,  padded_shapes=shapes, padding_values=p_values): 
