@@ -14,7 +14,7 @@ epochs    = 100
 m         = centerNet()
 
 for epoch in range(epochs):
-  loss_cmp = 0
+  loss_cmp  = 0
   i         = 0
   
   for voc_example in voc_train.map(preprocess_img).padded_batch(5,  padded_shapes=shapes, padding_values=p_values): 
@@ -27,7 +27,7 @@ for epoch in range(epochs):
       loss_   = loss_fn(logits, [tl, br])
       
     loss_cmp += tf.reduce_sum(loss_)
-    grads = tape.gradient(loss_, m.trainable_weights)
+    grads     = tape.gradient(loss_, m.trainable_weights)
     optimizer.apply_gradients(zip(grads, m.trainable_weights))
     i = i + 1
   
