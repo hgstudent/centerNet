@@ -2,7 +2,7 @@ from pooling import *
 from unet import *
 import tensorflow as tf
 
-def model(c = 1, input_size=(512,512,3)):
+def centerNet(c = 1, input_size=(512,512,3)):
   #Decrease resolution and extract feature map
   inputs      = tf.keras.Input(shape=input_size)
   x           = conv_module(inputs, size=(7,7), strides_=(2,2))
